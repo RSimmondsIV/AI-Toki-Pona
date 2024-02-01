@@ -18,10 +18,13 @@ class vectorization(object):
         :type file: file
         :rtype: List [str]
         """
-        # Open the file with known words
-        read_file = open(self.infile,'r')
+        # Open the file with known words,
+        # using encoding to remove the UTF-8 Byte Order Mark, which is what shows up as ï»¿
+            # senshin - https://stackoverflow.com/questions/34399172/why-does-my-python-code-print-the-extra-characters-%C3%AF-when-reading-from-a-tex
+        read_file = open(self.infile,'r',encoding='utf-8-sig')
         # Read lines TODO: Figure out why the first 3 characters are special and nonalphanumeric
-        toki_pona_words = read_file.readline()[3:-1].split(',')
+        toki_pona_words = read_file.readline().split(',')
+        # print(toki_pona_words)
         read_file.close()
         return toki_pona_words
 
