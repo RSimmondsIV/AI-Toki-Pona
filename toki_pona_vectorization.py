@@ -3,13 +3,12 @@ punctuation = [',','.',':',"'",'"','-','!','?']
 class vectorization(object):
     # Class that, given a csv file of words, finds the amount of times that word is used in some text 
         # In this case, for Simplicity, Toki Pona is used.
-    def __init__(self, infile, poem):
+    def __init__(self, wordfile, poem):
         """
-        :type infile: file (csv)
+        :type wordfile: file (csv)
         :type poem: String
-        :rtype: List
         """
-        self.infile = infile
+        self.wordfile = wordfile
         self.poem = poem
         self.punctuation = punctuation # This is global and easy to modify
         
@@ -21,9 +20,9 @@ class vectorization(object):
         # Open the file with known words,
         # using encoding to remove the UTF-8 Byte Order Mark, which is what shows up as ï»¿
             # senshin - https://stackoverflow.com/questions/34399172/why-does-my-python-code-print-the-extra-characters-%C3%AF-when-reading-from-a-tex
-        read_file = open(self.infile,'r',encoding='utf-8-sig')
+        read_file = open(self.wordfile,'r',encoding='utf-8-sig')
         # Read lines TODO: Figure out why the first 3 characters are special and nonalphanumeric
-        toki_pona_words = read_file.readline().split(',')
+        toki_pona_words = read_file.readline()[:-1].split(',')
         # print(toki_pona_words)
         read_file.close()
         return toki_pona_words
@@ -68,6 +67,5 @@ class vectorization(object):
 
 test1 = vectorization('Toki_Pona_Vectors.csv', 
                     'sina, sina la, ken ala mi la. pilin. ante. seme?')
-
 
 print(test1.make_vectors())
